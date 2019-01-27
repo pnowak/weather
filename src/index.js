@@ -13,11 +13,11 @@ const Day = ({ day }) => {
 
 const WeatherIcon = ({ classIcon }) => (
   <span className="icon">
-    <i className={ classIcon }/>
+    <i className={ `wi ${classIcon}` }/>
   </span>
 );
 
-function MinMaxTemp({ temp }) {
+const MinMaxTemp = ({ temp }) => {
   const { max, min } = temp;
 
   return (
@@ -28,16 +28,7 @@ function MinMaxTemp({ temp }) {
   );
 }
 
-const testWeather = {
-  day: 'Wen',
-  temp: {
-    max: 33,
-    min: 12
-  },
-  classIcon: 'wi wi-day-storm-showers'
-};
-
-function WeatherTile({ dayWeather }) {
+const WeatherTile = ({ dayWeather }) => {
   return (
     <div className="weather">
       <Day day={ dayWeather.day }/>
@@ -48,6 +39,15 @@ function WeatherTile({ dayWeather }) {
     </div>
   );
 }
+
+const testWeather = {
+  day: 'Wen',
+  temp: {
+    max: 33,
+    min: 12
+  },
+  classIcon: 'wi-day-storm-showers'
+};
 
 Day.propTypes = {
   day: PropTypes.string.isRequired
