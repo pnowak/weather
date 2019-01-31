@@ -1,31 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Day from './Day';
+import WeatherIcon from './WeatherIcon';
+import MinMaxTemp from './MinMaxTemp';
 import './weatherTile.css';
-
-const Day = ({ day }) => {
-  return (
-    <span className="day">
-     { day }
-    </span>
-  );
-};
-
-const WeatherIcon = ({ classIcon }) => (
-  <span className="icon">
-    <i className={ `wi ${classIcon}` }/>
-  </span>
-);
-
-const MinMaxTemp = ({ temp }) => {
-  const { max, min } = temp;
-
-  return (
-    <span className="temp">
-      <span className="max">{ max }<sup>&deg;</sup></span>
-      <span className="min">{ min }<sup>&deg;</sup></span>
-    </span>
-  );
-}
 
 const WeatherTile = ({ dayWeather }) => {
   return (
@@ -38,21 +16,6 @@ const WeatherTile = ({ dayWeather }) => {
     </div>
   );
 }
-
-Day.propTypes = {
-  day: PropTypes.string.isRequired
-};
-
-WeatherIcon.propTypes = {
-  classIcon: PropTypes.string.isRequired
-};
-
-MinMaxTemp.propTypes = {
-  temp: PropTypes.shape({
-    max: PropTypes.number.isRequired,
-    min: PropTypes.number.isRequired
-  }).isRequired
-};
 
 WeatherTile.propTypes = {
   dayWeather: PropTypes.shape({
