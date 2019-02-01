@@ -27,17 +27,17 @@ class WeatherApp extends Component {
   render() {
     return (
       <div>
-        <WeatherTile dayWeather={ testWeather.tue }/>
-        <WeatherTile dayWeather={ testWeather.wen }/>
-        <WeatherTile dayWeather={ testWeather.thu }/>
-        <WeatherTile dayWeather={ testWeather.fri }/>
-        <WeatherTile dayWeather={ testWeather.sat }/>
+        <WeatherTile dayWeather={ fakeData.tue }/>
+        <WeatherTile dayWeather={ fakeData.wen }/>
+        <WeatherTile dayWeather={ fakeData.thu }/>
+        <WeatherTile dayWeather={ fakeData.fri }/>
+        <WeatherTile dayWeather={ fakeData.sat }/>
       </div>
     );
   }
 }
 
-const testWeather = {
+const fakeData = {
   tue: {
     day: 'Tue',
     temp: {
