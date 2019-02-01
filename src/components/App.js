@@ -17,9 +17,8 @@ class WeatherApp extends Component {
     fetch(API)
       .then(response => response.json())
       .then(data => {
-        console.log(data);
-
         this.setState({ data });
+        console.log(this.state.data);
       })
       .catch(error => console.error(error));
   }
