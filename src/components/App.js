@@ -1,15 +1,41 @@
-import React from 'react';
+import React, { Component } from 'react';
 import WeatherTile from './WeatherTile';
 
-const WeatherApp = () => (
-  <div>
-    <WeatherTile dayWeather={ testWeather.tue }/>
-    <WeatherTile dayWeather={ testWeather.wen }/>
-    <WeatherTile dayWeather={ testWeather.thu }/>
-    <WeatherTile dayWeather={ testWeather.fri }/>
-    <WeatherTile dayWeather={ testWeather.sat }/>
-  </div>
-)
+const CITY_ID = 7531202; //Pruszcz Gdański
+const API = `http://api.openweathermap.org/data/2.5/forecast?id=${CITY_ID}&units=metric&APPID=b4edeb90c9c076527cc408b60c7c397e`;
+
+class WeatherApp extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      data: null
+    };
+  }
+
+  componentDidMount() {
+    fetch(API)
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+
+        this.setState({ data });
+      })
+      .catch(error => console.error(error));
+  }
+
+  render() {
+    return (
+      <div>
+        <WeatherTile dayWeather={ testWeather.tue }/>
+        <WeatherTile dayWeather={ testWeather.wen }/>
+        <WeatherTile dayWeather={ testWeather.thu }/>
+        <WeatherTile dayWeather={ testWeather.fri }/>
+        <WeatherTile dayWeather={ testWeather.sat }/>
+      </div>
+    );
+  }
+}
 
 const testWeather = {
   tue: {
