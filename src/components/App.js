@@ -11,16 +11,40 @@ class WeatherApp extends Component {
     this.state = {
       data: null
     };
+
+    this.arrayOfDay = null;
   }
 
   componentDidMount() {
     fetch(API)
       .then(response => response.json())
-      .then(data => {
-        this.setState({ data });
-        console.log(this.state.data);
+      .then(data => this.setState({ data }))
+      .then(() => {
+        this.arrayOfDay = this.groupByDay(this.state.data.list);
+
+        this.createTileData();
       })
       .catch(error => console.error(error));
+  }
+
+  groupByDay(arr) {
+    return arr.reduce((acc, next) => {
+      const date = new Date(next.dt * 1000);
+      const dateString = date.toString();
+      const weekDay = dateString.substring(0, 3);
+
+      if (!acc[weekDay]) {
+        acc[weekDay] = [];
+      }
+
+      acc[weekDay].push(next);
+
+      return acc;
+    }, {});
+  }
+
+  createTileData() {
+    console.log(this.arrayOfDay);
   }
 
   render() {
