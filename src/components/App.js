@@ -13,6 +13,7 @@ class WeatherApp extends Component {
     };
 
     this.arrayOfDay = null;
+    this.tileData = null;
   }
 
   componentDidMount() {
@@ -22,7 +23,8 @@ class WeatherApp extends Component {
       .then(() => {
         this.arrayOfDay = this.groupByDay(this.state.data.list);
 
-        this.createTileData();
+        this.tileData = this.createTileData();
+        console.log(this.tileData);
       })
       .catch(error => console.error(error));
   }
@@ -43,8 +45,40 @@ class WeatherApp extends Component {
     }, {});
   }
 
+  getDay() {
+    return Object.keys(this.arrayOfDay);
+  }
+
+  getTemp() {
+    const weekDay = this.getDay();
+
+    return weekDay.map((day) => {
+      return this.arrayOfDay[day].reduce((acc, next) => {
+        if (!acc[day]) {
+          acc[day] = [];
+        }
+
+        acc[day].push(next.main.temp);
+
+        return acc;
+      }, {});
+    });
+  }
+
   createTileData() {
-    console.log(this.arrayOfDay);
+    const temps = this.getTemp();
+
+    return temps.map((temp) => {
+      const dayName = Object.getOwnPropertyNames(temp)[0];
+
+      return { [dayName]: {
+        day: dayName,
+        temp: {
+          max: Math.max(...temp[dayName]),
+          min: Math.min(...temp[dayName])
+        }
+      }}
+    });
   }
 
   render() {
