@@ -65,8 +65,40 @@ class WeatherApp extends Component {
     });
   }
 
+  getIcons() {
+    const weekDay = this.getDay();
+
+    return weekDay.map((day) => {
+      return this.arrayOfDay[day].reduce((acc, next) => {
+        if (!acc[day]) {
+          acc[day] = [];
+        }
+
+        acc[day].push(next.weather[0].main);
+
+        return acc;
+      }, {});
+    });
+  }
+
+  countIcons(icons) {
+    const weekDay = this.getDay();
+
+    return icons.map((icon) => {
+      const dayName = Object.getOwnPropertyNames(icon)[0];
+
+      return icon[dayName].reduce((acc, next) => {
+        acc[next] = (acc[next] + 1) || 1;
+
+        return acc;
+      }, {});
+    });
+  }
+
   createTileData() {
     const temps = this.getTemp();
+    const icons = this.getIcons();
+    const countIcons = this.countIcons(icons);
 
     return temps.map((temp) => {
       const dayName = Object.getOwnPropertyNames(temp)[0];
@@ -84,11 +116,12 @@ class WeatherApp extends Component {
   render() {
     return (
       <div>
-        <WeatherTile dayWeather={ fakeData.tue }/>
-        <WeatherTile dayWeather={ fakeData.wen }/>
-        <WeatherTile dayWeather={ fakeData.thu }/>
-        <WeatherTile dayWeather={ fakeData.fri }/>
-        <WeatherTile dayWeather={ fakeData.sat }/>
+        <WeatherTile dayWeather={ this.tileData ? this.tileData[0] : fakeData.tue }/>
+        <WeatherTile dayWeather={ this.tileData ? this.tileData[1] : fakeData.wen }/>
+        <WeatherTile dayWeather={ this.tileData ? this.tileData[2] : fakeData.thu }/>
+        <WeatherTile dayWeather={ this.tileData ? this.tileData[3] : fakeData.fri }/>
+        <WeatherTile dayWeather={ this.tileData ? this.tileData[4] : fakeData.sat }/>
+        <WeatherTile dayWeather={ this.tileData ? this.tileData[5] : fakeData.tue }/>
       </div>
     );
   }
@@ -134,6 +167,14 @@ const fakeData = {
       min: 9
     },
     classIcon: 'wi-day-cloudy-high'
+  },
+  sun: {
+    day: 'Sun',
+    temp: {
+      max: 3,
+      min: -9
+    },
+    classIcon: 'wi-rain-wind'
   },
 };
 
