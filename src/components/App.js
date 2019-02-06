@@ -82,8 +82,6 @@ class WeatherApp extends Component {
   }
 
   countIcons(icons) {
-    const weekDay = this.getDay();
-
     return icons.map((icon) => {
       const dayName = Object.getOwnPropertyNames(icon)[0];
 
@@ -95,12 +93,30 @@ class WeatherApp extends Component {
     });
   }
 
+  maxIcon(countIcons) {
+    return countIcons.map((day) => {
+      let entries = Object.entries(day);
+      let values = Object.values(day);
+      let max = Math.max(...values);
+      let arr = [];
+
+      entries.forEach((item, index) => {
+        if (item.includes(max)) {
+          arr.push(item[0]);
+        }
+      });
+
+      return arr;
+    });
+  }
+
   createTileData() {
     const temps = this.getTemp();
     const icons = this.getIcons();
     const countIcons = this.countIcons(icons);
+    const max = this.maxIcon(countIcons);
 
-    return temps.map((temp) => {
+    return temps.map((temp, index) => {
       const dayName = Object.getOwnPropertyNames(temp)[0];
 
       return { [dayName]: {
@@ -108,7 +124,8 @@ class WeatherApp extends Component {
         temp: {
           max: Math.max(...temp[dayName]),
           min: Math.min(...temp[dayName])
-        }
+        },
+        classIcon: max[index][0]
       }}
     });
   }
