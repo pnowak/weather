@@ -124,7 +124,7 @@ class WeatherApp extends Component {
     const icons = this.getIcons();
     const countIcons = this.countIcons(icons);
     const max = this.maxIcon(countIcons);
-    const stringToIcons = mapStringToIcons.get(this);
+    const stringToIcon = mapStringToIcons.get(this);
 
     return temps.map((temp, index) => {
       const dayName = Object.getOwnPropertyNames(temp)[0];
@@ -135,7 +135,7 @@ class WeatherApp extends Component {
           max: Math.max(...temp[dayName]),
           min: Math.min(...temp[dayName])
         },
-        classIcon: stringToIcons[max[index][0]]
+        classIcon: stringToIcon[max[index][0]]
       }}
     });
   }
