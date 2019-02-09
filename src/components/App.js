@@ -4,6 +4,8 @@ import WeatherTile from './WeatherTile';
 const CITY_ID = 7531202; //Pruszcz Gdański
 const API = `http://api.openweathermap.org/data/2.5/forecast?id=${CITY_ID}&units=metric&APPID=b4edeb90c9c076527cc408b60c7c397e`;
 
+const mapStringToIcons = new Map();
+
 class WeatherApp extends Component {
   constructor(props) {
     super(props);
@@ -14,6 +16,13 @@ class WeatherApp extends Component {
 
     this.arrayOfDay = null;
     this.tileData = null;
+
+    mapStringToIcons.set(this, {
+      Clear: 'wi-day-sunny',
+      Cloud: 'wi-cloud',
+      Rain: 'wi-rain',
+      Snow: 'wi-snow',
+    });
   }
 
   componentDidMount() {
@@ -115,6 +124,7 @@ class WeatherApp extends Component {
     const icons = this.getIcons();
     const countIcons = this.countIcons(icons);
     const max = this.maxIcon(countIcons);
+    const stringToIcons = mapStringToIcons.get(this);
 
     return temps.map((temp, index) => {
       const dayName = Object.getOwnPropertyNames(temp)[0];
@@ -125,7 +135,7 @@ class WeatherApp extends Component {
           max: Math.max(...temp[dayName]),
           min: Math.min(...temp[dayName])
         },
-        classIcon: max[index][0]
+        classIcon: stringToIcons[max[index][0]]
       }}
     });
   }
