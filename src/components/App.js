@@ -11,7 +11,9 @@ class WeatherApp extends Component {
     super(props);
 
     this.state = {
-      data: null
+      items: null,
+      error: null,
+      isLoading: false
     };
 
     this.arrayOfDay = null;
@@ -28,14 +30,18 @@ class WeatherApp extends Component {
   componentDidMount() {
     fetch(API)
       .then(response => response.json())
-      .then(data => this.setState({ data }))
-      .then(() => {
-        this.arrayOfDay = this.groupByDay(this.state.data.list);
+      .then(data => {
+        this.arrayOfDay = this.groupByDay(data.list);
 
         this.tileData = this.createTileData();
-        console.log(this.tileData);
+        this.setState({ items: data, isLoading: true });
       })
-      .catch(error => console.error(error));
+      .catch((error) => {
+        this.setState({
+          isLoaded: true,
+          error
+        });
+      });
   }
 
   groupByDay(arr) {
@@ -136,73 +142,32 @@ class WeatherApp extends Component {
           min: Math.min(...temp[dayName])
         },
         classIcon: stringToIcon[max[index][0]]
-      }}
+      }};
     });
   }
 
   render() {
-    return (
-      <div>
-        <WeatherTile dayWeather={ this.tileData ? this.tileData[0] : fakeData.tue }/>
-        <WeatherTile dayWeather={ this.tileData ? this.tileData[1] : fakeData.wen }/>
-        <WeatherTile dayWeather={ this.tileData ? this.tileData[2] : fakeData.thu }/>
-        <WeatherTile dayWeather={ this.tileData ? this.tileData[3] : fakeData.fri }/>
-        <WeatherTile dayWeather={ this.tileData ? this.tileData[4] : fakeData.sat }/>
-        <WeatherTile dayWeather={ this.tileData ? this.tileData[5] : fakeData.tue }/>
-      </div>
-    );
+    const { items, error, isLoading } = this.state;
+
+    if (error) {
+      return <div>Error: {error.message}</div>;
+
+    } else if (!isLoading) {
+      return <div>Loading...</div>;
+
+    } else {
+      return (
+        <div>
+          <WeatherTile dayWeather={ this.tileData && this.tileData[0] }/>
+          <WeatherTile dayWeather={ this.tileData && this.tileData[1] }/>
+          <WeatherTile dayWeather={ this.tileData && this.tileData[2] }/>
+          <WeatherTile dayWeather={ this.tileData && this.tileData[3] }/>
+          <WeatherTile dayWeather={ this.tileData && this.tileData[4] }/>
+          <WeatherTile dayWeather={ this.tileData && this.tileData[5] }/>
+        </div>
+      );
+    }
   }
 }
-
-const fakeData = {
-  tue: {
-    day: 'Tue',
-    temp: {
-      max: 23,
-      min: 12
-    },
-    classIcon: 'wi-day-storm-showers'
-  },
-  wen: {
-    day: 'Wen',
-    temp: {
-      max: 23,
-      min: 15
-    },
-    classIcon: 'wi-rain-wind'
-  },
-  thu: {
-    day: 'Thu',
-    temp: {
-      max: 3,
-      min: -1
-    },
-    classIcon: 'wi-lightning'
-  },
-  fri: {
-    day: 'Fri',
-    temp: {
-      max: 33,
-      min: 21
-    },
-    classIcon: 'wi-day-sunny'
-  },
-  sat: {
-    day: 'Sat',
-    temp: {
-      max: 13,
-      min: 9
-    },
-    classIcon: 'wi-day-cloudy-high'
-  },
-  sun: {
-    day: 'Sun',
-    temp: {
-      max: 3,
-      min: -9
-    },
-    classIcon: 'wi-rain-wind'
-  },
-};
 
 export default WeatherApp;
