@@ -6,8 +6,8 @@ const MinMaxTemp = ({ temp }) => {
 
   return (
     <span className="temp">
-      <span className="max">{ max }<sup>&deg;</sup></span>
-      <span className="min">{ min }<sup>&deg;</sup></span>
+      <span className="max">{ Math.round(max) }<sup>&deg;</sup></span>
+      <span className="min">{ Math.round(min) }<sup>&deg;</sup></span>
     </span>
   );
 };
