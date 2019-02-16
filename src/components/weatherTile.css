@@ -6,7 +6,7 @@
   margin-right: 10px;
   margin-bottom: 10px;
   display: inline-block;
-  font-family: "Helvetica", arial, sans-serif;
+  font-family: 'Playfair Display', serif;
   text-align: center;
 }
 
@@ -24,7 +24,7 @@
 
 .temp {
   margin-top: 12px;
-  font-size: 1em;
+  font-size: 1.1em;
   font-weight: 900;
   color: #8899a6;
 }
@@ -33,4 +33,8 @@
   margin-left: 6px;
   font-weight: 300;
   color: #aab8c2;
+}
+
+h2 {
+  font-family: 'Playfair Display', serif;
 }
