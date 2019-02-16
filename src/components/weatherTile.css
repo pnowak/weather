@@ -1,9 +1,10 @@
 .weather {
   border: 1px solid #ccc;
-  width: 68px;
+  width: 72px;
   min-height: 88px;
   padding: 10px;
   margin-right: 10px;
+  margin-bottom: 10px;
   display: inline-block;
   font-family: "Helvetica", arial, sans-serif;
   text-align: center;
@@ -23,6 +24,8 @@
 
 .temp {
   margin-top: 10px;
+  margin-right: 2px;
+  text-align: center;
   font-size: 1em;
   font-weight: 900;
   color: #8899a6;
@@ -31,5 +34,4 @@
 .min {
   font-weight: 300;
   color: #aab8c2;
-  margin-left: 3px;
 }

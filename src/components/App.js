@@ -21,7 +21,7 @@ class WeatherApp extends Component {
 
     mapStringToIcons.set(this, {
       Clear: 'wi-day-sunny',
-      Cloud: 'wi-cloud',
+      Clouds: 'wi-cloud',
       Rain: 'wi-rain',
       Snow: 'wi-snow',
     });
@@ -135,19 +135,19 @@ class WeatherApp extends Component {
     return temps.map((temp, index) => {
       const dayName = Object.getOwnPropertyNames(temp)[0];
 
-      return { [dayName]: {
+      return {
         day: dayName,
         temp: {
           max: Math.max(...temp[dayName]),
           min: Math.min(...temp[dayName])
         },
         classIcon: stringToIcon[max[index][0]]
-      }};
+      };
     });
   }
 
   render() {
-    const { items, error, isLoading } = this.state;
+    const { error, isLoading } = this.state;
 
     if (error) {
       return <div>Error: {error.message}</div>;
@@ -158,12 +158,12 @@ class WeatherApp extends Component {
     } else {
       return (
         <div>
-          <WeatherTile dayWeather={ this.tileData && this.tileData[0] }/>
-          <WeatherTile dayWeather={ this.tileData && this.tileData[1] }/>
-          <WeatherTile dayWeather={ this.tileData && this.tileData[2] }/>
-          <WeatherTile dayWeather={ this.tileData && this.tileData[3] }/>
-          <WeatherTile dayWeather={ this.tileData && this.tileData[4] }/>
-          <WeatherTile dayWeather={ this.tileData && this.tileData[5] }/>
+          <WeatherTile dayWeather={ this.tileData[0] }/>
+          <WeatherTile dayWeather={ this.tileData[1] }/>
+          <WeatherTile dayWeather={ this.tileData[2] }/>
+          <WeatherTile dayWeather={ this.tileData[3] }/>
+          <WeatherTile dayWeather={ this.tileData[4] }/>
+          <WeatherTile dayWeather={ this.tileData[5] }/>
         </div>
       );
     }
