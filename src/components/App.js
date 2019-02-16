@@ -11,7 +11,7 @@ class WeatherApp extends Component {
     super(props);
 
     this.state = {
-      items: null,
+      data: null,
       error: null,
       isLoading: false
     };
@@ -34,7 +34,7 @@ class WeatherApp extends Component {
         this.arrayOfDay = this.groupByDay(data.list);
 
         this.tileData = this.createTileData();
-        this.setState({ items: data, isLoading: true });
+        this.setState({ data, isLoading: true });
       })
       .catch((error) => {
         this.setState({
@@ -147,7 +147,7 @@ class WeatherApp extends Component {
   }
 
   render() {
-    const { error, isLoading } = this.state;
+    const { data, error, isLoading } = this.state;
 
     if (error) {
       return <div>Error: {error.message}</div>;
@@ -158,6 +158,7 @@ class WeatherApp extends Component {
     } else {
       return (
         <div>
+          <h2>{ data.city.name }</h2>
           <WeatherTile dayWeather={ this.tileData[0] }/>
           <WeatherTile dayWeather={ this.tileData[1] }/>
           <WeatherTile dayWeather={ this.tileData[2] }/>
