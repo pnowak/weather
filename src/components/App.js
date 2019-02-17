@@ -1,4 +1,9 @@
 import React, { Component } from 'react';
+import {
+  BrowserRouter as Router,
+  Route,
+  Link
+} from 'react-router-dom';
 import WeatherTile from './WeatherTile';
 
 const CITY_ID = 7531202; //Pruszcz Gdański
@@ -156,16 +161,32 @@ class WeatherApp extends Component {
       return <div>Loading...</div>;
 
     } else {
+      console.log(this.tileData);
       return (
-        <div>
-          <h2>{ data.city.name }</h2>
-          <WeatherTile dayWeather={ this.tileData[0] }/>
-          <WeatherTile dayWeather={ this.tileData[1] }/>
-          <WeatherTile dayWeather={ this.tileData[2] }/>
-          <WeatherTile dayWeather={ this.tileData[3] }/>
-          <WeatherTile dayWeather={ this.tileData[4] }/>
-          <WeatherTile dayWeather={ this.tileData[5] }/>
-        </div>
+        <Router>
+          <div>
+            <h2>{ data.city.name }</h2>
+            <Link to={ this.tileData[0].day }>
+              <WeatherTile dayWeather={ this.tileData[0] }/>
+            </Link>
+            <Link to={ this.tileData[1].day }>
+              <WeatherTile dayWeather={ this.tileData[1] }/>
+            </Link>
+            <Link to={ this.tileData[2].day }>
+              <WeatherTile dayWeather={ this.tileData[2] }/>
+            </Link>
+            <Link to={ this.tileData[3].day }>
+              <WeatherTile dayWeather={ this.tileData[3] }/>
+            </Link>
+            <Link to={ this.tileData[4].day }>
+              <WeatherTile dayWeather={ this.tileData[4] }/>
+            </Link>
+            <Link to={ this.tileData[5].day }>
+              <WeatherTile dayWeather={ this.tileData[5] }/>
+            </Link>
+
+          </div>
+        </Router>
       );
     }
   }
