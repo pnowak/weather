@@ -166,25 +166,11 @@ class WeatherApp extends Component {
         <Router>
           <div>
             <h2>{ data.city.name }</h2>
-            <Link to={ this.tileData[0].day }>
-              <WeatherTile dayWeather={ this.tileData[0] }/>
-            </Link>
-            <Link to={ this.tileData[1].day }>
-              <WeatherTile dayWeather={ this.tileData[1] }/>
-            </Link>
-            <Link to={ this.tileData[2].day }>
-              <WeatherTile dayWeather={ this.tileData[2] }/>
-            </Link>
-            <Link to={ this.tileData[3].day }>
-              <WeatherTile dayWeather={ this.tileData[3] }/>
-            </Link>
-            <Link to={ this.tileData[4].day }>
-              <WeatherTile dayWeather={ this.tileData[4] }/>
-            </Link>
-            <Link to={ this.tileData[5].day }>
-              <WeatherTile dayWeather={ this.tileData[5] }/>
-            </Link>
-
+            {this.tileData.map((item, index) => (
+              <Link key={ index } to={ item.day }>
+                <WeatherTile key={ item.day } dayWeather={ this.tileData[index] }/>
+              </Link>
+            ))}
           </div>
         </Router>
       );
