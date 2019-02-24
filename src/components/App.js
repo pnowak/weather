@@ -171,11 +171,19 @@ class WeatherApp extends Component {
                 <WeatherTile key={ item.day } dayWeather={ this.tileData[index] }/>
               </Link>
             ))}
+
+            <Route path="/:id" component={Child}/>
           </div>
         </Router>
       );
     }
   }
 }
+
+const Child = ({ match }) => (
+  <div>
+    <h3>ID: {match.params.id}</h3>
+  </div>
+)
 
 export default WeatherApp;
